@@ -3,19 +3,30 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MaterialApp(
+  runApp(MaterialApp(
     home: Home(),
   ));
 }
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  TextEditingController pesoController = TextEditingController();
+  TextEditingController alturaController = TextEditingController();
+
+  String _infoText = "Informe seus dados!";
+
+  void _resetar() {
+    pesoController.text = "";
+    alturaController.text = "";
+    _infoText = "Informe seus dados!";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +36,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.green,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: _resetar,
             icon: const Icon(Icons.refresh),
           )
         ],
@@ -37,23 +48,25 @@ class _HomeState extends State<Home> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const Icon(Icons.person_outline, size: 120.0, color: Colors.green),
-            const TextField(
+            TextField(
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Peso (kg)",
                 labelStyle: TextStyle(color: Colors.green),
               ),
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.green, fontSize: 25.0),
+              style: const TextStyle(color: Colors.green, fontSize: 25.0),
+              controller: pesoController,
             ),
-            const TextField(
+            TextField(
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Altura (cm)",
                 labelStyle: TextStyle(color: Colors.green),
               ),
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.green, fontSize: 25.0),
+              style: const TextStyle(color: Colors.green, fontSize: 25.0),
+              controller: alturaController,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10, bottom: 10),
@@ -72,8 +85,8 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            const Text(
-              "Info",
+            Text(
+              _infoText,
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.green, fontSize: 25.0),
             ),
